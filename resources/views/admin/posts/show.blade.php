@@ -6,6 +6,11 @@
             <div class="col-12">
                 <h1 class="my-5">{{ $post->title }}</h1>
             </div>
+            <td class="col-12">
+                @foreach ($post->tags as $tag)
+                {{ $tag->name }}
+                @endforeach
+            </td>
             <div class="col-12">
                 <h1 class="my-5">{{ $post->type->name ?? '' }}</h1>
             </div>

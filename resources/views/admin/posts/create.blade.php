@@ -33,6 +33,14 @@
                         </select>
                     </div>
                     <div class="form-group mt-4">
+                        <label class="contol-lable">Tag</label>
+                        <select name="tags[]" id="tags" class="form-control" multiple>
+                            @foreach ($tags as $tag)
+                                <option value="{{ $tag->id }}">{{ $tag->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group mt-4">
                         <label class="contol-lable">Contenuto</label>
                         <textarea class="form-control @error('content') is-invalid @enderror" name="content" id="content" placeholder="Contenuto">{{ old('content') }}</textarea>
                     </div>

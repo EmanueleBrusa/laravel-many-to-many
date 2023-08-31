@@ -7,6 +7,7 @@ use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use App\Models\Post;
 use App\Models\Type;
+use App\Models\Tag;
 
 use Illuminate\Support\Facades\Storage;
 
@@ -31,7 +32,8 @@ class PostController extends Controller
     public function create()
     {
         $types = Type::get();
-        return view('admin.posts.create', compact('types'));
+        $tags = Tag::get();
+        return view('admin.posts.create', compact('types', 'tags'));
     }
 
     /**
@@ -57,6 +59,11 @@ class PostController extends Controller
         $post->fill($form_data);
 
         $post->save();
+
+        
+        if ($request->has('tags')) {
+            $post->tags()->attach($request->tags);
+        }
         return redirect()->route('admin.posts.index');
     }
 
@@ -68,7 +75,7 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        $post = Post::findOrFail($id);
+        $post = Post::with('tags')->findOrFail($id);
         return view('admin.posts.show', compact('post'));
     }
 
