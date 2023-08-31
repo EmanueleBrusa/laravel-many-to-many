@@ -21,6 +21,14 @@
                     @enderror
                 </div>
                 <div class="form-group mt-4">
+                    <label class="contol-lable">Tag</label>
+                    <select name="tags[]" id="tags" class="form-control" multiple>
+                        @foreach ($tags as $tag)
+                            <option value="{{ $tag->id }}" {{ in_array($tag->id,$post->tags->pluck('id')->toArray()) ? 'selected' : '' }}>{{ $tag->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group mt-4">
                     <label class="contol-lable">Tipologia</label>
                     <select name="type_id" id="type" class="form-control">
                         @foreach ($types as $type)

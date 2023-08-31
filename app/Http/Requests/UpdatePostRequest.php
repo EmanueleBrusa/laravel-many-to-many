@@ -25,7 +25,9 @@ class UpdatePostRequest extends FormRequest
     {
         return [
             'title' => 'required|max:50',
-            'type_id' => 'required|exists:types,id'
+            'type_id' => 'required|exists:types,id',
+            'tags' => 'required|array',
+            'tags.*' => 'exists:tags,id'
         ];
     }
 

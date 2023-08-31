@@ -88,7 +88,8 @@ class PostController extends Controller
     public function edit(Post $post)
     {
         $types = Type::get();
-        return view('admin.posts.edit', compact('types','post'));
+        $tags = Tag::get();
+        return view('admin.posts.edit', compact('types','post', 'tags'));
     }
 
     /**
@@ -105,6 +106,10 @@ class PostController extends Controller
         $form_data['slug'] =  $post->generateSlug($form_data['title']);
         
         $post->update($form_data);
+
+        if ($request->has('tags')) {
+            $post->tags()->sync($request->tags);
+        }
 
         return redirect()->route('admin.posts.index');
     }
